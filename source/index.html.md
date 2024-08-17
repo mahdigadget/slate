@@ -1,18 +1,11 @@
 ---
-title: API Reference
+title: Attack Evaluation
 
-language_tabs: # must be one of https://github.com/rouge-ruby/rouge/wiki/List-of-supported-languages-and-lexers
+language_tabs:
   - shell
-  - ruby
-  - python
-  - javascript
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
-  - <a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a>
-
-includes:
-  - errors
+  - <a href='https://github.com/farbodan/attack_evaluation'>Source Code</a>
 
 search: true
 
@@ -20,226 +13,134 @@ code_clipboard: true
 
 meta:
   - name: description
-    content: Documentation for the Kittn API
+    content: Documentation for the Attack Evaluation
 ---
 
-# Introduction
+# مقدمه
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+این برنامه به این جهت توسعه داده شده که تمامی تحرکات داخل سیستم اعم از **تغییر نام فایل**، **ساخت فایل**، **حذف فایل**، **تغییر سطح دسترسی فایل** و **تغییرات در سطح فایل** را تشخیص دهد.
 
-We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+در این سرویس به طور کلی ۴ دستور وجود دارد که ۴ عملیات **اضافه کردن فایل**، **حذف فایل**، **مشاهده فایل‌ها** و **اجرای برنامه** را مدیریت می‌کنند.
 
-This example API documentation page was created with [Slate](https://github.com/slatedocs/slate). Feel free to edit it and use it as a base for your own API's documentation.
+در ادامه این مستند با اضافه کردن فایل به برنامه آشنا می‌شوید.
 
-# Authentication
+# Add Path
 
-> To authorize, use this code:
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-```
+> برای اضافه کردن فایل می‌توانید از دستور زیر استفاده کنید:
 
 ```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here" \
-  -H "Authorization: meowmeowmeow"
+go run main.go add_path your_path
+````
+
+> یا
+
+```shell
+your_executable_program_name add_path your_path
 ```
 
-```javascript
-const kittn = require('kittn');
+با استفاده از این دستور شما می‌توانید فایل‌های مدنظر خود را به دیتابیس این برنامه اضافه کنید.
 
-let api = kittn.authorize('meowmeowmeow');
-```
-
-> Make sure to replace `meowmeowmeow` with your API key.
-
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
-
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: meowmeowmeow`
+پس از اجرای این دستور، در صورت موفقیت‌آمیز بودن، برنامه با کد ۱ خارج می‌شود و در صورتی که خطایی وجود داشته باشد، برنامه خطا را نمایش می‌دهد و سپس متوقف می‌شود.
 
 <aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+ورودی قابل قبول می‌تواند هم دایرکتوری باشد هم فایل.
+فقط توجه شود در صورتی که دایرکتوری وارد کردید حتماً <code>/</code> را در آخر دایرکتوری مدنظر قرار دهید تا برنامه به‌راحتی تمامی فایل‌های زیرمجموعه دایرکتوری را مدنظر قرار دهد.
+
+</aside>
+<aside class="warning">
+توجه کنید که پس از اجرای برنامه، در صورتی که در زمان خاموش بودن برنامه، تغییراتی در فایل‌های مدنظر سیستم رخ دهد، تمامی تغییرات در لاگ برنامه نمایش داده می‌شود و در صورتی که دوباره برنامه اجرا شود، تغییرات قبلی مشاهده نمی‌شوند.
 </aside>
 
-# Kittens
+# Get Path
 
-## Get All Kittens
+> برای مشاهده فایل‌های اضافه شده می‌توانید از دستور زیر استفاده کنید:
 
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
 
 ```shell
-curl "http://example.com/api/kittens" \
-  -H "Authorization: meowmeowmeow"
+go run main.go get_path
 ```
 
-```javascript
-const kittn = require('kittn');
+> یا
 
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
+
+```shell
+your_executable_program_name get_path
 ```
 
-> The above command returns JSON structured like this:
+با استفاده از این دستور شما می‌توانید فایل‌های اضافه‌شده به دیتابیس این برنامه را مشاهده کنید.
 
-```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
-]
-```
+پس از اجرای این دستور، در صورت موفقیت‌آمیز بودن، برنامه تمامی فایل‌های اضافه شده توسط شما را نمایش می‌دهد و با کد ۱ خارج می‌شود. در صورتی که خطایی وجود داشته باشد، برنامه خطا را نمایش می‌دهد و سپس متوقف می‌شود.
 
-This endpoint retrieves all kittens.
-
-### HTTP Request
-
-`GET http://example.com/api/kittens`
-
-### Query Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
+<aside class="notice">
+در صورتی که فایلی که اضافه کرده‌اید دایرکتوری باشد، زیرمجموعه‌ها در خروجی این قسمت نمایش داده نمی‌شوند و فقط فایل اصلی که اضافه شده، نمایش داده می‌شود.
+</aside>
+<aside class="warning">
+توجه کنید که پس از اجرای برنامه، در صورتی که در زمان خاموش بودن برنامه، تغییراتی در فایل‌های مدنظر سیستم رخ دهد، تمامی تغییرات در لاگ برنامه نمایش داده می‌شود و در صورتی که دوباره برنامه اجرا شود، تغییرات قبلی مشاهده نمی‌شوند.
 </aside>
 
-## Get a Specific Kitten
+# Delete Path
 
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
+> برای حذف کردن فایل میتونید از دستور زیر استفاده کنید:
 
 ```shell
-curl "http://example.com/api/kittens/2" \
-  -H "Authorization: meowmeowmeow"
+go run main.go delete_path your_path
 ```
 
-```javascript
-const kittn = require('kittn');
+> یا
 
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
-}
-```
-
-This endpoint retrieves a specific kitten.
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-
-### HTTP Request
-
-`GET http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
-
-## Delete a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.delete(2)
-```
 
 ```shell
-curl "http://example.com/api/kittens/2" \
-  -X DELETE \
-  -H "Authorization: meowmeowmeow"
+your_executable_program_name delete_path your_path
 ```
 
-```javascript
-const kittn = require('kittn');
+با استفاده از این دستور شما می‌توانید فایل‌های مدنظر خود را از دیتابیس این برنامه حذف کنید.
 
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.delete(2);
+پس از اجرای این دستور، در صورت موفقیت‌آمیز بودن، برنامه با کد ۱ خارج می‌شود و در صورتی که خطایی وجود داشته باشد، برنامه خطا را نمایش می‌دهد و سپس متوقف می‌شود.
+
+<aside class="notice">
+فایل‌های ورودی باید همان فایل‌هایی باشند که در Get Path دریافت کردید.
+</aside>
+<aside class="warning">
+توجه کنید که پس از اجرای برنامه، در صورتی که در زمان خاموش بودن برنامه، تغییراتی در فایل‌های مدنظر سیستم رخ دهد، تمامی تغییرات در لاگ برنامه نمایش داده می‌شود و در صورتی که دوباره برنامه اجرا شود، تغییرات قبلی مشاهده نمی‌شوند.
+</aside>
+
+
+# Run
+
+> برنامه اجرای برنامه میتوانید از دستور زیر استفاده کنید:
+
+```shell
+go run main.go run
 ```
 
-> The above command returns JSON structured like this:
+> یا
 
-```json
-{
-  "id": 2,
-  "deleted" : ":("
-}
+
+```shell
+your_executable_program_name run
 ```
+با استفاده از این دستور شما می‌توانید برنامه خود را اجرا کنید.
 
-This endpoint deletes a specific kitten.
+پس از اجرای برنامه، تمامی فایل‌ها به لیست برنامه برای بررسی اضافه می‌شوند. همچنین تمام فایل‌های زیرمجموعه دایرکتوری‌ها نیز به این لیست اضافه می‌گردد.
 
-### HTTP Request
+پس از هر نوع فعالیتی بر روی فایل‌ها، نام فایل به همراه نوع فعالیت به Zabbix ارسال می‌گردد و در دیتابیس ذخیره می‌شود.
 
-`DELETE http://example.com/kittens/<ID>`
+در این حالت برنامه تا زمانی که متوقف نشود به کار خود ادامه میدهد.
 
-### URL Parameters
+<aside class="notice">
+نکته مهم در اجرای برنامه این است که خود برنامه **نباید** خودش و دیتابیس خودش را به هر نحوی مانیتور کند.
+</aside>
+<aside class="warning">
+توجه کنید که پس از اجرای برنامه، در صورتی که در زمان خاموش بودن برنامه، تغییراتی در فایل‌های مدنظر سیستم رخ دهد، تمامی تغییرات در لاگ برنامه نمایش داده می‌شود و در صورتی که دوباره برنامه اجرا شود، تغییرات قبلی مشاهده نمی‌شوند.
+</aside>
 
-Parameter | Description
+# چکیده 
+
+ورودی | توضیحات
 --------- | -----------
-ID | The ID of the kitten to delete
+add_path | مسیر فایل یا دایرکتوری که می‌خواهید به برنامه اضافه کنید. این مسیر می‌تواند یک فایل تکی یا یک دایرکتوری باشد.
+get_path | این دستور فایل‌ها یا دایرکتوری‌هایی را که قبلاً به برنامه اضافه کرده‌اید نمایش می‌دهد.
+delete_path | مسیر فایل یا دایرکتوری که می‌خواهید از برنامه حذف کنید. این مسیر باید قبلاً با دستور add_path اضافه شده باشد.
+run | اجرای برنامه برای نظارت بر تغییرات در فایل‌ها و دایرکتوری‌های اضافه شده. این دستور شروع به مانیتورینگ تغییرات می‌کند و نتایج را ثبت می‌کند.
+
 
